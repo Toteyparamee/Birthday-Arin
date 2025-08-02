@@ -622,6 +622,30 @@
             box-shadow: 0 12px 35px rgba(244, 114, 182, 0.6);
         }
         
+        .special-btn:disabled {
+            background: linear-gradient(135deg, #9ca3af, #6b7280, #4b5563);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(75, 85, 99, 0.3);
+        }
+        
+        .special-btn:disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(75, 85, 99, 0.3);
+        }
+        
+        .waiting-message {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: #92400e;
+            font-weight: 600;
+            display: none;
+        }
+        
         .birthday-message {
             background: linear-gradient(135deg, #fdf2f8, #fce7f3);
             border: 3px solid #f472b6;
@@ -1200,7 +1224,6 @@
                     <img src="photo1.png" alt="Birthday Person" class="main-photo" 
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="photo-placeholder" style="display:none;">📸</div>
-                    <p class="photo-caption">รูปสวยๆ ที่ไม่มีพื้นหลัง</p>
                 </div>
             </div>
             
@@ -1259,12 +1282,19 @@
                         <span id="buttonText">ข้างในจะเป็นอะไรนะ</span>
                     </button>
                     
+                    <div class="waiting-message" id="waitingMessage">
+                        <h4 style="margin-bottom: 1rem; font-size: 1.2rem;">🕐 รอถึงวันก่อนนะจ๊ะ</h4>
+                        <p>ยังไม่ถึงวันพิเศษ ต้องรออีกหน่อยนะคับ 💕</p>
+                        <div id="waitingCountdown" style="margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.3); border-radius: 15px; font-weight: bold; font-size: 1.1rem;"></div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">5 สิงหาคม 2025</p>
+                    </div>
+                    
                     <div id="birthdayMessage" style="display: none;">
                         <div class="birthday-message">
                             <h3 class="birthday-title">🎂 สุขสันต์วันเกิด! 🎂</h3>
                             <p class="birthday-text">
                                 ขอให้พี่มีความสุขมากๆ สุขภาพแข็งแรง<br>
-                                และประสบความสำเร็จในทุกๆ เรื่องนะคะ
+                                และประสบความสำเร็จในทุกๆ เรื่องนะคับ
                             </p>
                             
                             <div class="video-container">
@@ -1325,22 +1355,56 @@
             const difference = birthday.getTime() - now.getTime();
             const countdownElement = document.getElementById('countdown-text');
             const buttonElement = document.getElementById('buttonText');
+            const specialButton = document.getElementById('specialButton');
+            const waitingMessage = document.getElementById('waitingMessage');
+            const waitingCountdown = document.getElementById('waitingCountdown');
             
             if (difference > 0) {
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-                countdownElement.innerHTML = `เหลือเวลาอีก ${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที`;
+                
+                const countdownText = `เหลือเวลาอีก ${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที`;
+                countdownElement.innerHTML = countdownText;
+                
+                // Update waiting countdown as well
+                if (waitingCountdown) {
+                    waitingCountdown.innerHTML = `⏰ ${countdownText}`;
+                }
+                
                 if (buttonElement) {
                     buttonElement.textContent = 'รอลุ้นจังว่าข้างในจะเป็นอะไร';
                 }
+                
+                // Disable button and show waiting message
+                if (specialButton) {
+                    specialButton.disabled = true;
+                    specialButton.onclick = function() {
+                        if (waitingMessage) {
+                            waitingMessage.style.display = waitingMessage.style.display === 'none' ? 'block' : 'none';
+                        }
+                    };
+                }
+                
                 isBirthday = false;
             } else {
                 countdownElement.innerHTML = `วันพิเศษมาถึงแล้ว! 🎉`;
+                
                 if (buttonElement) {
                     buttonElement.textContent = 'วันพิเศษของพี่มาถึงแล้ว';
                 }
+                
+                // Enable button and hide waiting message
+                if (specialButton) {
+                    specialButton.disabled = false;
+                    specialButton.onclick = showBirthdayMessage;
+                }
+                
+                if (waitingMessage) {
+                    waitingMessage.style.display = 'none';
+                }
+                
                 isBirthday = true;
             }
         }
@@ -1395,6 +1459,12 @@
         
         // Birthday Message
         function showBirthdayMessage() {
+            // Stop the music
+            const music = document.getElementById('birthdayMusic');
+            if (music) {
+                music.pause();
+            }
+            
             document.getElementById('birthdayMessage').style.display = 'block';
             document.getElementById('specialButton').style.display = 'none';
             createConfetti();

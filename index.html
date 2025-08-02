@@ -166,7 +166,7 @@
         
         .cover-corner-image {
             position: absolute;
-            bottom: 2rem;
+            bottom: 4rem;
             right: -1rem;
             width: 300px;
             height: 300px;
@@ -1276,7 +1276,7 @@
                     <h2 class="title" style="font-size: 2rem;"> โต๋มีอะไรจะบอก...</h2>
                     <p class="subtitle">ไม่บอกหรอกลุ้นเองสิ!เเบร์</p>
                 </div>
-                <img src="photo3.png" alt="Cover Decoration" class="cover-corner-image" onerror="this.style.display='none';">
+                <img src="photo3.png" alt="Cover Decoration" class="cover-corner-image" id="page3Image" onerror="this.style.display='none';">
                 <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
                     <button class="special-btn" id="specialButton" onclick="showBirthdayMessage()">
                         <span id="buttonText">ข้างในจะเป็นอะไรนะ</span>
@@ -1387,6 +1387,12 @@
                         if (waitingMessage) {
                             const isCurrentlyShowing = waitingMessage.style.display === 'block';
                             waitingMessage.style.display = isCurrentlyShowing ? 'none' : 'block';
+                            
+                            // Hide/show image when button is clicked
+                            const page3Image = document.getElementById('page3Image');
+                            if (page3Image) {
+                                page3Image.style.display = isCurrentlyShowing ? 'block' : 'none';
+                            }
                             
                             // Update countdown immediately when showing
                             if (!isCurrentlyShowing) {

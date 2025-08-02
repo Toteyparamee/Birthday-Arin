@@ -168,8 +168,8 @@
             position: absolute;
             bottom: 2rem;
             right: -1rem;
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             object-fit: contain;
             opacity: 0.9;
             animation: float-gentle 4s ease-in-out infinite;
@@ -1022,8 +1022,8 @@
             }
             
             .cover-corner-image {
-                width: 450px;
-                height: 450px;
+                width: 400px;
+                height: 400px;
                 right: -1.5rem;
             }
             
@@ -1230,7 +1230,7 @@
             <!-- Page 2: Photo Gallery -->
             <div class="page hidden" id="page2">
                 <div class="header">
-                    <h2 class="title" style="font-size: 2rem;">📰 news</h2>
+                    <h2 class="title" style="font-size: 2rem;">📰 News</h2>
                     <p class="subtitle">ใกล้ถึงวันพิเศษของพี่แล้ว🎉</p>
                 </div>
                 
@@ -1276,7 +1276,7 @@
                     <h2 class="title" style="font-size: 2rem;"> โต๋มีอะไรจะบอก...</h2>
                     <p class="subtitle">ไม่บอกหรอกลุ้นเองสิ!เเบร์</p>
                 </div>
-                <img src="photo1.png" alt="Cover Decoration" class="cover-corner-image" onerror="this.style.display='none';">
+                <img src="photo3.png" alt="Cover Decoration" class="cover-corner-image" onerror="this.style.display='none';">
                 <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
                     <button class="special-btn" id="specialButton" onclick="showBirthdayMessage()">
                         <span id="buttonText">ข้างในจะเป็นอะไรนะ</span>
@@ -1342,6 +1342,9 @@
             }
         }
         
+        // Global variable to store current countdown text
+        let currentCountdownText = '';
+        
         // Countdown Logic
         function updateCountdown() {
             const now = new Date();
@@ -1351,13 +1354,12 @@
             if (now > birthday) {
                 birthday.setFullYear(currentYear + 1);
             }
-            
+             
             const difference = birthday.getTime() - now.getTime();
             const countdownElement = document.getElementById('countdown-text');
             const buttonElement = document.getElementById('buttonText');
             const specialButton = document.getElementById('specialButton');
             const waitingMessage = document.getElementById('waitingMessage');
-            const waitingCountdown = document.getElementById('waitingCountdown');
             
             if (difference > 0) {
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -1365,24 +1367,34 @@
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
                 
-                const countdownText = `เหลือเวลาอีก ${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที`;
-                countdownElement.innerHTML = countdownText;
+                currentCountdownText = `เหลือเวลาอีก ${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที`;
+                countdownElement.innerHTML = currentCountdownText;
                 
-                // Update waiting countdown as well
-                if (waitingCountdown) {
-                    waitingCountdown.innerHTML = `⏰ ${countdownText}`;
+                // Update waiting countdown if visible
+                const waitingCountdown = document.getElementById('waitingCountdown');
+                if (waitingCountdown && waitingMessage && waitingMessage.style.display === 'block') {
+                    waitingCountdown.innerHTML = `⏰ ${currentCountdownText}`;
                 }
                 
                 if (buttonElement) {
                     buttonElement.textContent = 'รอลุ้นจังว่าข้างในจะเป็นอะไร';
                 }
                 
-                // Disable button and show waiting message
+                // Setup click handler for waiting period
                 if (specialButton) {
-                    specialButton.disabled = true;
+                    specialButton.disabled = false;
                     specialButton.onclick = function() {
                         if (waitingMessage) {
-                            waitingMessage.style.display = waitingMessage.style.display === 'none' ? 'block' : 'none';
+                            const isCurrentlyShowing = waitingMessage.style.display === 'block';
+                            waitingMessage.style.display = isCurrentlyShowing ? 'none' : 'block';
+                            
+                            // Update countdown immediately when showing
+                            if (!isCurrentlyShowing) {
+                                const waitingCountdownElement = document.getElementById('waitingCountdown');
+                                if (waitingCountdownElement) {
+                                    waitingCountdownElement.innerHTML = `⏰ ${currentCountdownText}`;
+                                }
+                            }
                         }
                     };
                 }

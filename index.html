@@ -319,50 +319,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
         
-        .music-section {
-            background: rgba(139, 69, 19, 0.05);
-            border: 2px solid #e8dcc6;
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-            margin: 1rem 0;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .music-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #8b4513;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
-        
-        .play-button {
-            background: #f472b6;
-            border: none;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 1.8rem;
-            cursor: pointer;
-            margin: 0 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(244, 114, 182, 0.4);
-        }
-        
-        .play-button:hover {
-            background: #ec4899;
-            transform: scale(1.1);
-        }
-        
-        .music-text {
-            color: #8b4513;
-            font-weight: 500;
-            font-size: 1rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
         
         .photo-section {
             flex-grow: 1;
@@ -1144,7 +1100,6 @@
             .book-cover:hover,
             .main-photo:hover,
             .photo-item:hover,
-            .play-button:hover,
             .special-btn:hover,
             .nav-btn:hover {
                 transform: none;
@@ -1156,7 +1111,6 @@
                 transform: scale(0.98);
             }
             
-            .play-button:active,
             .special-btn:active,
             .nav-btn:active {
                 transform: scale(0.95);
@@ -1235,19 +1189,10 @@
                     <div class="date-text">5 สิงหาคม 2025 ✨</div>
                 </div>
                 
-                <!-- Music Player -->
-                <div class="music-section">
-                    <h3 class="music-title">🎵 เพลงวันเกิด</h3>
-                    <div style="display: flex; align-items: center; justify-content: center;">
-                        <button class="play-button" onclick="toggleMusic()">
-                            <span id="playIcon">▶️</span>
-                        </button>
-                        <span class="music-text">คลิกเพื่อเปิดเพลง</span>
-                    </div>
-                    <audio id="birthdayMusic" loop>
-                        <source src="birthday-song.mp3" type="audio/mpeg">
-                    </audio>
-                </div>
+                <!-- Background Music -->
+                <audio id="birthdayMusic" autoplay loop>
+                    <source src="birthday-song.mp3" type="audio/mpeg">
+                </audio>
                 
                 <!-- Main Photo -->
                 <div class="photo-section">
@@ -1359,6 +1304,9 @@
                     document.getElementById('page1').classList.remove('hidden');
                     currentPageNum = 1;
                     updateNavigation();
+                    // Auto play music when book opens
+                    const music = document.getElementById('birthdayMusic');
+                    music.play().catch(e => console.log('Audio play failed:', e));
                 }, 400);
                 bookOpened = true;
             }
@@ -1444,21 +1392,6 @@
             }
         }
         
-        // Music Player
-        function toggleMusic() {
-            const music = document.getElementById('birthdayMusic');
-            const playIcon = document.getElementById('playIcon');
-            
-            if (isPlaying) {
-                music.pause();
-                playIcon.textContent = '▶️';
-                isPlaying = false;
-            } else {
-                music.play().catch(e => console.log('Audio play failed:', e));
-                playIcon.textContent = '⏸️';
-                isPlaying = true;
-            }
-        }
         
         // Birthday Message
         function showBirthdayMessage() {

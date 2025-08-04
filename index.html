@@ -676,6 +676,7 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none; /* Hide video initially */
         }
         
         .video-container video {
@@ -2041,6 +2042,9 @@
         function showVideo() {
             const videoContainer = document.querySelector('.video-container');
             const video = videoContainer.querySelector('video');
+            
+            // Show video container
+            videoContainer.style.display = 'block';
             
             // Make video container more prominent
             videoContainer.style.transform = 'scale(1.1)';

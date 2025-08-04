@@ -1119,6 +1119,345 @@
             }
         }
         
+        /* Fireworks Animation */
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1002;
+            display: none;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: firework-explode 1.5s ease-out forwards;
+        }
+        
+        @keyframes firework-explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(3);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(6);
+                opacity: 0;
+            }
+        }
+        
+        .firework::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: inherit;
+            animation: firework-spark 1.5s ease-out forwards;
+        }
+        
+        @keyframes firework-spark {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Circular Cake Design */
+        .birthday-cake {
+            width: 250px;
+            height: 200px;
+            margin: 2rem auto;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cake-base {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(145deg, #D2691E, #CD853F, #DEB887);
+            border-radius: 50%;
+            position: absolute;
+            left: 25px;
+            bottom: 20px;
+            box-shadow: 
+                0 15px 35px rgba(210, 105, 30, 0.4),
+                inset 0 5px 15px rgba(255, 255, 255, 0.2),
+                inset 0 -5px 15px rgba(139, 69, 19, 0.3);
+            border: 3px solid #8B4513;
+        }
+        
+        .cake-frosting {
+            width: 190px;
+            height: 190px;
+            background: linear-gradient(145deg, #FFF8DC, #F5DEB3, #FFEBCD);
+            border-radius: 50%;
+            position: absolute;
+            left: 30px;
+            bottom: 25px;
+            box-shadow: 
+                inset 0 5px 15px rgba(255, 255, 255, 0.8),
+                inset 0 -5px 15px rgba(245, 222, 179, 0.6),
+                0 10px 25px rgba(245, 222, 179, 0.4),
+                0 5px 15px rgba(255, 248, 220, 0.3);
+            border: 2px solid #DEB887;
+        }
+        
+        /* Strawberries on cake */
+        .strawberries {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .strawberry {
+            position: absolute;
+            font-size: 1.2rem;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+            animation: strawberry-float 3s ease-in-out infinite;
+        }
+        
+        .strawberry:nth-child(1) { 
+            top: -30px; 
+            left: -10px; 
+            animation-delay: 0s;
+        }
+        .strawberry:nth-child(2) { 
+            top: -20px; 
+            right: -15px; 
+            animation-delay: 1s;
+        }
+        .strawberry:nth-child(3) { 
+            bottom: -25px; 
+            left: -8px; 
+            animation-delay: 2s;
+        }
+        .strawberry:nth-child(4) { 
+            bottom: -30px; 
+            right: -12px; 
+            animation-delay: 0.5s;
+        }
+        .strawberry:nth-child(5) { 
+            top: -15px; 
+            left: 15px; 
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes strawberry-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
+        .cake-text {
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            transform: translate(-50%, -50%);
+            color: #D2691E;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            z-index: 10;
+            pointer-events: none;
+            line-height: 1.2;
+        }
+        
+        .cake-hint {
+            position: absolute;
+            left: 50%;
+            bottom: -45px;
+            transform: translateX(-50%);
+            color: #8b4513;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            border: 2px solid #f472b6;
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.3);
+            z-index: 15;
+            animation: hint-bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes hint-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        .cake-slice {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            left: 25px;
+            bottom: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            transition: all 0.8s ease;
+            cursor: pointer;
+        }
+        
+        .slice-segment {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            transform-origin: 50% 50%;
+            left: 0px;
+            top: 0px;
+            transition: all 0.8s ease;
+            cursor: pointer;
+        }
+        
+        .slice-1 { 
+            clip-path: polygon(50% 50%, 50% 0%, 85.4% 14.6%);
+            background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+            box-shadow: inset 2px 2px 6px rgba(255, 182, 193, 0.7), 0 5px 15px rgba(255, 182, 193, 0.5);
+            border: 2px solid #FF69B4;
+        }
+        .slice-2 { 
+            clip-path: polygon(50% 50%, 85.4% 14.6%, 100% 50%);
+            background: linear-gradient(135deg, #98FB98, #90EE90);
+            box-shadow: inset 2px 2px 6px rgba(152, 251, 152, 0.7), 0 5px 15px rgba(152, 251, 152, 0.5);
+            border: 2px solid #32CD32;
+        }
+        .slice-3 { 
+            clip-path: polygon(50% 50%, 100% 50%, 85.4% 85.4%);
+            background: linear-gradient(135deg, #87CEEB, #87CEFA);
+            box-shadow: inset 2px 2px 6px rgba(135, 206, 235, 0.7), 0 5px 15px rgba(135, 206, 235, 0.5);
+            border: 2px solid #4169E1;
+        }
+        .slice-4 { 
+            clip-path: polygon(50% 50%, 85.4% 85.4%, 50% 100%);
+            background: linear-gradient(135deg, #DDA0DD, #DA70D6);
+            box-shadow: inset 2px 2px 6px rgba(221, 160, 221, 0.7), 0 5px 15px rgba(221, 160, 221, 0.5);
+            border: 2px solid #BA55D3;
+        }
+        .slice-5 { 
+            clip-path: polygon(50% 50%, 50% 100%, 14.6% 85.4%);
+            background: linear-gradient(135deg, #F0E68C, #FFD700);
+            box-shadow: inset 2px 2px 6px rgba(240, 230, 140, 0.7), 0 5px 15px rgba(240, 230, 140, 0.5);
+            border: 2px solid #FFD700;
+        }
+        .slice-6 { 
+            clip-path: polygon(50% 50%, 14.6% 85.4%, 0% 50%);
+            background: linear-gradient(135deg, #FFA07A, #FF7F50);
+            box-shadow: inset 2px 2px 6px rgba(255, 160, 122, 0.7), 0 5px 15px rgba(255, 160, 122, 0.5);
+            border: 2px solid #FF6347;
+        }
+        .slice-7 { 
+            clip-path: polygon(50% 50%, 0% 50%, 14.6% 14.6%);
+            background: linear-gradient(135deg, #E6E6FA, #D8BFD8);
+            box-shadow: inset 2px 2px 6px rgba(230, 230, 250, 0.7), 0 5px 15px rgba(230, 230, 250, 0.5);
+            border: 2px solid #DDA0DD;
+        }
+        .slice-8 { 
+            clip-path: polygon(50% 50%, 14.6% 14.6%, 50% 0%);
+            background: linear-gradient(135deg, #FFEFD5, #FFE4B5);
+            box-shadow: inset 2px 2px 6px rgba(255, 239, 213, 0.7), 0 5px 15px rgba(255, 239, 213, 0.5);
+            border: 2px solid #DEB887;
+        }
+        
+        .slice-segment.removed {
+            transform: scale(0.3) translateY(-200px) rotate(720deg);
+            opacity: 0;
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        /* Countdown Timer */
+        .countdown-timer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            text-align: center;
+            z-index: 1000;
+            border: 3px solid #f472b6;
+            display: none;
+        }
+        
+        .countdown-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #db2777;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: countdown-pulse 1s ease-in-out;
+        }
+        
+        @keyframes countdown-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .countdown-text {
+            font-size: 1.2rem;
+            color: #374151;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        
+        .candles {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+        
+        .candle {
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+        
+        .flame {
+            width: 8px;
+            height: 10px;
+            background: radial-gradient(circle, #FF6B35 30%, #F7931E 70%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -8px;
+            left: -2px;
+            animation: flicker 0.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { transform: rotate(-2deg) scale(1); }
+            100% { transform: rotate(2deg) scale(1.1); }
+        }
+        
+        .cake-instruction {
+            text-align: center;
+            margin-top: 1rem;
+            color: #8b4513;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
         /* Touch device optimizations */
         @media (hover: none) and (pointer: coarse) {
             .book-cover:hover,
@@ -1175,6 +1514,9 @@
         <div class="star">🌟</div>
     </div>
 
+    <!-- Fireworks Container -->
+    <div class="fireworks" id="fireworksContainer"></div>
+
     <!-- Navigation -->
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" onclick="previousPage()" disabled>หน้าก่อน</button>
@@ -1210,7 +1552,7 @@
                     <span class="cake-emoji">🎂</span>
                     <h2 class="countdown-title">🎉 นับถอยหลังสู่วันพิเศษ 🎉</h2>
                     <div class="countdown-text" id="countdown-text">กำลังโหลด...</div>
-                    <div class="date-text">5 สิงหาคม 2025 ✨</div>
+                    <div class="date-text">4 สิงหาคม 2025 ✨</div>
                 </div>
                 
                 <!-- Background Music -->
@@ -1286,7 +1628,7 @@
                         <h4 style="margin-bottom: 1rem; font-size: 1.2rem;">🕐 รอถึงวันก่อนนะจ๊ะ</h4>
                         <p>ยังไม่ถึงวันพิเศษ ต้องรออีกหน่อยนะคับ 💕</p>
                         <div id="waitingCountdown" style="margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.3); border-radius: 15px; font-weight: bold; font-size: 1.1rem;"></div>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">5 สิงหาคม 2025</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">4 สิงหาคม 2025</p>
                     </div>
                     
                     <div id="birthdayMessage" style="display: none;">
@@ -1296,6 +1638,49 @@
                                 ขอให้พี่มีความสุขมากๆ สุขภาพแข็งแรง<br>
                                 และประสบความสำเร็จในทุกๆ เรื่องนะคับ
                             </p>
+                            
+                            <!-- Interactive Circular Birthday Cake -->
+                            <div class="birthday-cake" id="birthdayCake" onclick="sliceCake()">
+                                <div class="candles">
+                                    <div class="candle">
+                                        <div class="flame"></div>
+                                    </div>
+                                    <div class="candle">
+                                        <div class="flame"></div>
+                                    </div>
+                                    <div class="candle">
+                                        <div class="flame"></div>
+                                    </div>
+                                </div>
+                                <div class="cake-base"></div>
+                                <div class="cake-frosting"></div>
+                                <div class="cake-text">Happy<br>Birthday!</div>
+                                <div class="strawberries">
+                                    <div class="strawberry">🍓</div>
+                                    <div class="strawberry">🍓</div>
+                                    <div class="strawberry">🍓</div>
+                                    <div class="strawberry">🍓</div>
+                                    <div class="strawberry">🍓</div>
+                                </div>
+                                <div class="cake-hint">👆 จิ้มที่เค้กเพื่อกิน!</div>
+                                <div class="cake-slice">
+                                    <div class="slice-segment slice-1" onclick="removeSlice(event, 1)" style="--rotate-angle: 0deg;"></div>
+                                    <div class="slice-segment slice-2" onclick="removeSlice(event, 2)" style="--rotate-angle: 45deg;"></div>
+                                    <div class="slice-segment slice-3" onclick="removeSlice(event, 3)" style="--rotate-angle: 90deg;"></div>
+                                    <div class="slice-segment slice-4" onclick="removeSlice(event, 4)" style="--rotate-angle: 135deg;"></div>
+                                    <div class="slice-segment slice-5" onclick="removeSlice(event, 5)" style="--rotate-angle: 180deg;"></div>
+                                    <div class="slice-segment slice-6" onclick="removeSlice(event, 6)" style="--rotate-angle: 225deg;"></div>
+                                    <div class="slice-segment slice-7" onclick="removeSlice(event, 7)" style="--rotate-angle: 270deg;"></div>
+                                    <div class="slice-segment slice-8" onclick="removeSlice(event, 8)" style="--rotate-angle: 315deg;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Countdown Timer -->
+                            <div class="countdown-timer" id="countdownTimer">
+                                <div class="countdown-number" id="countdownNumber">10</div>
+                                <div class="countdown-text">วินาทีกำลังเตรียมวิดีโอพิเศษ...</div>
+                            </div>
+                            <p class="cake-instruction">🎂 คลิกที่เค้กเพื่อหั่นทีละชิ้น</p>
                             
                             <div class="video-container">
                                 <video controls>
@@ -1349,19 +1734,41 @@
         function updateCountdown() {
             const now = new Date();
             const currentYear = now.getFullYear();
-            const birthday = new Date(currentYear, 7, 5, 0, 0, 0); // 5 สิงหาคม
             
-            if (now > birthday) {
-                birthday.setFullYear(currentYear + 1);
-            }
-             
-            const difference = birthday.getTime() - now.getTime();
+            // For testing: set birthday to today (August 4, 2025)
+            const birthday = new Date(2025, 7, 4, 0, 0, 0); // 4 สิงหาคม 2025
+            
+            // Check if today is on or after the birthday
+            const birthdayStart = new Date(2025, 7, 4, 0, 0, 0); // 4 สิงหาคม 2025
+            
             const countdownElement = document.getElementById('countdown-text');
             const buttonElement = document.getElementById('buttonText');
             const specialButton = document.getElementById('specialButton');
             const waitingMessage = document.getElementById('waitingMessage');
             
-            if (difference > 0) {
+            // For testing: Force birthday mode to be active
+            if (true) { // Always show birthday mode for testing
+                // It's the birthday or after!
+                countdownElement.innerHTML = `วันพิเศษมาถึงแล้ว! 🎉`;
+                
+                if (buttonElement) {
+                    buttonElement.textContent = 'วันพิเศษของพี่มาถึงแล้ว';
+                }
+                
+                // Enable button and hide waiting message
+                if (specialButton) {
+                    specialButton.disabled = false;
+                    specialButton.onclick = showBirthdayMessage;
+                }
+                
+                if (waitingMessage) {
+                    waitingMessage.style.display = 'none';
+                }
+                
+                isBirthday = true;
+            } else {
+                // Still waiting for birthday
+                const difference = birthdayStart.getTime() - now.getTime();
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -1406,24 +1813,6 @@
                 }
                 
                 isBirthday = false;
-            } else {
-                countdownElement.innerHTML = `วันพิเศษมาถึงแล้ว! 🎉`;
-                
-                if (buttonElement) {
-                    buttonElement.textContent = 'วันพิเศษของพี่มาถึงแล้ว';
-                }
-                
-                // Enable button and hide waiting message
-                if (specialButton) {
-                    specialButton.disabled = false;
-                    specialButton.onclick = showBirthdayMessage;
-                }
-                
-                if (waitingMessage) {
-                    waitingMessage.style.display = 'none';
-                }
-                
-                isBirthday = true;
             }
         }
         
@@ -1485,6 +1874,9 @@
             
             document.getElementById('birthdayMessage').style.display = 'block';
             document.getElementById('specialButton').style.display = 'none';
+            
+            // Create fireworks and confetti
+            createFireworks();
             createConfetti();
         }
         
@@ -1509,11 +1901,218 @@
             }
         }
         
-        // Add confetti animation
+        // Fireworks Function
+        function createFireworks() {
+            const fireworksContainer = document.getElementById('fireworksContainer');
+            fireworksContainer.style.display = 'block';
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    
+                    // Random colors for fireworks
+                    const colors = ['#ff6b6b', '#ffd93d', '#6bcf7f', '#4ecdc4', '#45b7d1', '#f472b6', '#c084fc'];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    firework.style.background = color;
+                    
+                    // Random position
+                    firework.style.left = Math.random() * 90 + 5 + '%';
+                    firework.style.top = Math.random() * 50 + 20 + '%';
+                    
+                    fireworksContainer.appendChild(firework);
+                    
+                    // Remove firework after animation
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1500);
+                }, i * 200);
+            }
+            
+            // Hide fireworks container after all animations
+            setTimeout(() => {
+                fireworksContainer.style.display = 'none';
+            }, 4000);
+        }
+        
+        // Cake Slicing Functions
+        let slicedCount = 0;
+        
+        function removeSlice(event, sliceNum) {
+            event.stopPropagation(); // Prevent parent click event
+            
+            const slice = document.querySelector(`.slice-${sliceNum}`);
+            if (slice && !slice.classList.contains('removed')) {
+                slice.classList.add('removed');
+                slicedCount++;
+                
+                // Create small celebration when slice is removed
+                createMiniFireworks(event.clientX, event.clientY);
+                
+                // If all 8 slices are removed, start countdown
+                if (slicedCount >= 8) {
+                    setTimeout(() => {
+                        const instruction = document.querySelector('.cake-instruction');
+                        const cakeText = document.querySelector('.cake-text');
+                        if (instruction) {
+                            instruction.textContent = '🎉 เค้กหมดแล้ว! เตรียมดูวิดีโอพิเศษ... 🎉';
+                            instruction.style.color = '#db2777';
+                            instruction.style.fontSize = '1.1rem';
+                            instruction.style.fontWeight = 'bold';
+                        }
+                        if (cakeText) {
+                            cakeText.style.opacity = '0.3';
+                        }
+                        
+                        // Start countdown after 1 second
+                        setTimeout(startCountdown, 1000);
+                    }, 500);
+                }
+            }
+        }
+        
+        function sliceCake() {
+            // This function is called when clicking the whole cake
+            // Find next unsliced piece and remove it
+            for (let i = 1; i <= 8; i++) {
+                const slice = document.querySelector(`.slice-${i}`);
+                if (slice && !slice.classList.contains('removed')) {
+                    slice.classList.add('removed');
+                    slicedCount++;
+                    
+                    // Create small celebration
+                    const cakeElement = document.getElementById('birthdayCake');
+                    const rect = cakeElement.getBoundingClientRect();
+                    createMiniFireworks(rect.left + rect.width/2, rect.top + rect.height/2);
+                    
+                    break;
+                }
+            }
+            
+            // Check if all 8 slices are removed
+            if (slicedCount >= 8) {
+                setTimeout(() => {
+                    const instruction = document.querySelector('.cake-instruction');
+                    const cakeText = document.querySelector('.cake-text');
+                    if (instruction) {
+                        instruction.textContent = '🎉 เค้กหมดแล้ว! เตรียมดูวิดีโอพิเศษ... 🎉';
+                        instruction.style.color = '#db2777';
+                        instruction.style.fontSize = '1.1rem';
+                        instruction.style.fontWeight = 'bold';
+                    }
+                    if (cakeText) {
+                        cakeText.style.opacity = '0.3';
+                    }
+                    
+                    // Start countdown after 1 second
+                    setTimeout(startCountdown, 1000);
+                }, 500);
+            }
+        }
+        
+        // Countdown and Video Functions
+        function startCountdown() {
+            const countdownTimer = document.getElementById('countdownTimer');
+            const countdownNumber = document.getElementById('countdownNumber');
+            
+            countdownTimer.style.display = 'block';
+            
+            let timeLeft = 10;
+            
+            const countdownInterval = setInterval(() => {
+                countdownNumber.textContent = timeLeft;
+                countdownNumber.style.animation = 'none';
+                
+                // Restart animation
+                setTimeout(() => {
+                    countdownNumber.style.animation = 'countdown-pulse 1s ease-in-out';
+                }, 10);
+                
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    countdownTimer.style.display = 'none';
+                    showVideo();
+                }
+            }, 1000);
+        }
+        
+        function showVideo() {
+            const videoContainer = document.querySelector('.video-container');
+            const video = videoContainer.querySelector('video');
+            
+            // Make video container more prominent
+            videoContainer.style.transform = 'scale(1.1)';
+            videoContainer.style.border = '3px solid #f472b6';
+            videoContainer.style.boxShadow = '0 15px 40px rgba(244, 114, 182, 0.6)';
+            
+            // Auto play video
+            if (video) {
+                video.play().catch(e => console.log('Video autoplay failed:', e));
+                video.controls = true;
+            }
+            
+            // Scroll to video smoothly
+            videoContainer.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+            
+            // Show special message
+            setTimeout(() => {
+                const instruction = document.querySelector('.cake-instruction');
+                if (instruction) {
+                    instruction.textContent = '🎬 วิดีโอพิเศษสำหรับคุณ! 🎬';
+                    instruction.style.fontSize = '1.3rem';
+                }
+            }, 1000);
+        }
+        
+        function createMiniFireworks(x, y) {
+            const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#f472b6'];
+            
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    left: ${x - 5}px;
+                    top: ${y - 5}px;
+                    width: 6px;
+                    height: 6px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: 50%;
+                    z-index: 1003;
+                    pointer-events: none;
+                    animation: mini-explode 0.8s ease-out forwards;
+                `;
+                
+                // Random direction for each particle
+                const angle = (Math.PI * 2 * i) / 5;
+                const distance = 30 + Math.random() * 20;
+                particle.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
+                particle.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 800);
+            }
+        }
+
+        // Add confetti and mini fireworks animations
         const style = document.createElement('style');
         style.textContent = `
             @keyframes confetti-fall {
                 to { transform: translateY(100vh) rotate(360deg); }
+            }
+            @keyframes mini-explode {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--dx), var(--dy)) scale(0.3);
+                    opacity: 0;
+                }
             }
         `;
         document.head.appendChild(style);

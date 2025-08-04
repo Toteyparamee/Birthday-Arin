@@ -1553,7 +1553,7 @@
                     <span class="cake-emoji">🎂</span>
                     <h2 class="countdown-title">🎉 นับถอยหลังสู่วันพิเศษ 🎉</h2>
                     <div class="countdown-text" id="countdown-text">กำลังโหลด...</div>
-                    <div class="date-text">4 สิงหาคม 2025 ✨</div>
+                    <div class="date-text">5 สิงหาคม 2025 ✨</div>
                 </div>
                 
                 <!-- Background Music -->
@@ -1629,7 +1629,7 @@
                         <h4 style="margin-bottom: 1rem; font-size: 1.2rem;">🕐 รอถึงวันก่อนนะจ๊ะ</h4>
                         <p>ยังไม่ถึงวันพิเศษ ต้องรออีกหน่อยนะคับ 💕</p>
                         <div id="waitingCountdown" style="margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.3); border-radius: 15px; font-weight: bold; font-size: 1.1rem;"></div>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">4 สิงหาคม 2025</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">5 สิงหาคม 2025</p>
                     </div>
                     
                     <div id="birthdayMessage" style="display: none;">
@@ -1736,19 +1736,19 @@
             const now = new Date();
             const currentYear = now.getFullYear();
             
-            // For testing: set birthday to today (August 4, 2025)
-            const birthday = new Date(2025, 7, 4, 0, 0, 0); // 4 สิงหาคม 2025
+            // For testing: set birthday to today (August 5, 2025)
+            const birthday = new Date(2025, 7, 5, 0, 0, 0); // 5 สิงหาคม 2025
             
             // Check if today is on or after the birthday
-            const birthdayStart = new Date(2025, 7, 4, 0, 0, 0); // 4 สิงหาคม 2025
+            const birthdayStart = new Date(2025, 7, 5, 0, 0, 0); // 5 สิงหาคม 2025
             
             const countdownElement = document.getElementById('countdown-text');
             const buttonElement = document.getElementById('buttonText');
             const specialButton = document.getElementById('specialButton');
             const waitingMessage = document.getElementById('waitingMessage');
             
-            // For testing: Force birthday mode to be active
-            if (true) { // Always show birthday mode for testing
+            // Check if today is on or after the birthday
+            if (now >= birthdayStart) {
                 // It's the birthday or after!
                 countdownElement.innerHTML = `วันพิเศษมาถึงแล้ว! 🎉`;
                 
